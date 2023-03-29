@@ -4,12 +4,25 @@
 \alias{LDAS}
 \title{LDA Score}
 \usage{
-LDAS(LDA_data, map, window = 5, verbose = TRUE)
+LDAS(
+  LDA_data,
+  SNPidx = NULL,
+  map,
+  window = 5,
+  runparallel = FALSE,
+  mc.cores = 8,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{LDA_data}{a data frame of LDA between all pairs of SNPs that are within the 'window'.
-SNPs should be in the decreasing order of physical position on a chromosome.
+SNPs should be in the decreasing order of physical position on a chromosome for both rows and columns.
 This is the output from \code{\link{LDA}}.}
+
+\item{SNPidx}{a numeric vector denoting the LDAS of which SNPs
+(located in which rows of the map) are computed.
+All the SNPs' indices in the LDA_data should be included in SNPidx.
+By default, SNPidx=NULL which specifies the LDAS of all the SNPs in the map will be computed.}
 
 \item{map}{a data frame of the physical position and genetic distance of
 all the SNPs contained in 'LDA_data'.
@@ -19,6 +32,11 @@ The second column is the genetic distance (unit: cM) of SNPs.}
 
 \item{window}{a positive number specifying the genetic distance that
 the LDA score of each SNP is computed within. By default, window=5.}
+
+\item{runparallel}{logical. Parallel programming or not (note: unavailable for Windows system).}
+
+\item{mc.cores}{a positive number specifying the number of cores used for parallel programming.
+By default, mc.cores=8.}
 
 \item{verbose}{logical. Print the process of calculating the LDA score for the i-th SNP.}
 }
@@ -54,10 +72,22 @@ LDA_result <- LDA(paintings)
 head(LDAandLDAS::example_map,10)
 
 # calculate the LDA score for the SNPs
-LDA_score <- LDAS(LDA_result,LDAandLDAS::example_map,window=10)
+LDA_score <- LDAS(LDA_result,map=LDAandLDAS::example_map,window=10)
 
 #visualize the LDA scores
 plot(x=LDA_score$SNP,y=LDA_score$LDAS)
+
+#' # if we only want to calculate the LDA of the 76th-85th SNP in the map
+# based on the 31st-130th SNP, which aims at saving the memory
+paintings2=list(LDAandLDAS::example_painting_p1[,31:130],
+                LDAandLDAS::example_painting_p2[,31:130])
+# note that the 76th-85th SNP in the original dataset is only the
+# (76-30)th-(85-30)th SNP in the new dataset (paintings2)
+LDA_result2 <- LDA(paintings2,SNPidx=76:85-30)
+
+# calculate the LDA score for the SNPs
+LDA_score2 <- LDAS(LDA_result2,SNPidx=76:85-30,
+                   map=LDAandLDAS::example_map[31:130,],window=5)
 }
 }
 \references{
