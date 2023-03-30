@@ -1,4 +1,4 @@
-138f1c24f1f4cd7700f9edb6b08771cd *DESCRIPTION
+2d15dfc810ea4e09edfa2c3e9bb31bad *DESCRIPTION
 4255de81aedb3652041eae2c66ef5250 *NAMESPACE
 e7e2210cb157b535d17625240a67f85e *R/LDA.R
 4b5299da474d7d1854da9f4e88d560ce *R/LDAS.R
@@ -16,4 +16,4 @@ fc82e620a235b9605a3a2ab07e39d061 *man/LDAS.Rd
 16408b5326c72fb9c7d085bf5bd04419 *man/example_painting_p1.Rd
 4f581ad703ffbd4f11e41c3aef19fb91 *man/example_painting_p2.Rd
 6313e1d4364f1fdc6ae179369076cb52 *src/RcppExports.cpp
-ccb7f38b6199084d67bdc066d9be1c8c *src/cal_lda.cpp
+4e22b636dd09fcad16f17361e9c76032 *src/cal_lda.cpp
